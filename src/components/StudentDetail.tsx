@@ -103,8 +103,8 @@ export const StudentDetail = ({ student, onBack, onEdit }: StudentDetailProps) =
               </div>
               <div>
                 <label className="text-sm font-medium text-muted-foreground">Status</label>
-                <Badge variant={student.status === 'active' ? 'default' : 'secondary'}>
-                  {student.status === 'active' ? 'Aktif' : 'Non-Aktif'}
+                <Badge variant={student.status === 'bekerja' ? 'default' : 'secondary'}>
+                  {student.status === 'bekerja' ? 'bekerja' : 'tidakbekerja'}
                 </Badge>
               </div>
               <div>
