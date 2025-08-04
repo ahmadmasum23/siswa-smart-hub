@@ -46,9 +46,9 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
             <GraduationCap className="h-8 w-8 text-primary-foreground" />
           </div>
           <div>
-            <CardTitle className="text-2xl font-bold">SIMS Login</CardTitle>
+            <CardTitle className="text-2xl font-bold">BKK</CardTitle>
             <CardDescription className="text-muted-foreground">
-              Sistem Informasi Manajemen Siswa
+              SMK Brantas Karangkates
             </CardDescription>
           </div>
         </CardHeader>

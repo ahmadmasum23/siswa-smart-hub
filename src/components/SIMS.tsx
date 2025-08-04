@@ -76,7 +76,7 @@ export const SIMS = () => {
       setUsername(user);
       toast({
         title: "Login Berhasil",
-        description: "Selamat datang di SIMS!",
+        description: "Selamat datang di BKK BRAKA!",
       });
     } else {
       toast({

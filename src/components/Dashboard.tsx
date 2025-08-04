@@ -1,5 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, BookOpen, UserCheck, TrendingUp } from "lucide-react";
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
+  LineChart, Line, CartesianGrid, PieChart, Pie, Cell, Legend
+} from "recharts";
 
 interface DashboardProps {
   data: {
@@ -42,13 +46,38 @@ export const Dashboard = ({ data }: DashboardProps) => {
     },
   ];
 
+  // Data Chart
+  const kelasData = [
+    { name: "X-1 IPA", siswa: 32 },
+    { name: "XI-2 IPS", siswa: 30 },
+    { name: "XII-1 IPA", siswa: 28 },
+    { name: "X-3 IPS", siswa: 31 },
+  ];
+
+  const nilaiData = [
+    { bulan: "Jan", nilai: 78 },
+    { bulan: "Feb", nilai: 80 },
+    { bulan: "Mar", nilai: 82 },
+    { bulan: "Apr", nilai: 85 },
+    { bulan: "Mei", nilai: 84 },
+    { bulan: "Jun", nilai: 87 },
+  ];
+
+  const siswaData = [
+    { name: "Aktif", value: data.activeStudents },
+    { name: "Non-Aktif", value: data.totalStudents - data.activeStudents },
+  ];
+
+  const COLORS = ["#4F46E5", "#A78BFA"];
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
         <p className="text-muted-foreground">Ringkasan data sistem informasi siswa</p>
       </div>
-      
+
+      {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
           <Card key={index} className="shadow-md hover:shadow-lg transition-shadow">
@@ -67,6 +96,7 @@ export const Dashboard = ({ data }: DashboardProps) => {
         ))}
       </div>
 
+      {/* Aktivitas & Kelas Populer */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="shadow-md">
           <CardHeader>
@@ -104,24 +134,59 @@ export const Dashboard = ({ data }: DashboardProps) => {
             <CardTitle>Kelas Populer</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium">X-1 IPA</span>
-                <span className="text-sm text-muted-foreground">32 siswa</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium">XI-2 IPS</span>
-                <span className="text-sm text-muted-foreground">30 siswa</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium">XII-1 IPA</span>
-                <span className="text-sm text-muted-foreground">28 siswa</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium">X-3 IPS</span>
-                <span className="text-sm text-muted-foreground">31 siswa</span>
-              </div>
-            </div>
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={kelasData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="siswa" fill="#4F46E5" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Grafik Nilai & Pie Chart */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle>Perkembangan Nilai Rata-rata</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={200}>
+              <LineChart data={nilaiData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="bulan" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="nilai" stroke="#10B981" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle>Distribusi Siswa</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={200}>
+              <PieChart>
+                <Pie
+                  data={siswaData}
+                  dataKey="value"
+                  nameKey="name"
+                  outerRadius={80}
+                  label
+                >
+                  {siswaData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Legend />
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
