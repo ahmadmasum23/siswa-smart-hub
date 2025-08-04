@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, BookOpen, UserCheck, TrendingUp } from "lucide-react";
+import { Users, BookOpen, UserCheck, TrendingUp,Briefcase,GraduationCap } from "lucide-react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   LineChart, Line, CartesianGrid, PieChart, Pie, Cell, Legend
@@ -17,58 +17,34 @@ interface DashboardProps {
 export const Dashboard = ({ data }: DashboardProps) => {
   const stats = [
     {
-      title: "Total Siswa",
-      value: data.totalStudents.toLocaleString(),
+      title: "Total Murid",
+      value: "34",
       icon: Users,
       color: "text-primary",
       bgColor: "bg-primary/10",
     },
     {
-      title: "Jumlah Kelas",
-      value: data.totalClasses.toString(),
-      icon: BookOpen,
+      title: "Alumni Yang Sudah Bekerja",
+      value: "5245",
+      icon: Briefcase,
       color: "text-secondary",
       bgColor: "bg-secondary/10",
     },
     {
-      title: "Siswa Aktif",
-      value: data.activeStudents.toLocaleString(),
-      icon: UserCheck,
+      title: "Alumni Yang Belum Bekerja",
+      value: "129",
+      icon: GraduationCap,
       color: "text-accent",
       bgColor: "bg-accent/10",
     },
-    {
-      title: "Rata-rata Nilai",
-      value: data.averageGrade.toFixed(1),
-      icon: TrendingUp,
-      color: "text-primary-variant",
-      bgColor: "bg-primary-variant/10",
-    },
+  ];
+const alumniData = [
+    { name: "Entrepreneur", value: 40 },
+    { name: "Employee", value: 35 },
+    { name: "Unemployed", value: 25 },
   ];
 
-  // Data Chart
-  const kelasData = [
-    { name: "X-1 IPA", siswa: 32 },
-    { name: "XI-2 IPS", siswa: 30 },
-    { name: "XII-1 IPA", siswa: 28 },
-    { name: "X-3 IPS", siswa: 31 },
-  ];
-
-  const nilaiData = [
-    { bulan: "Jan", nilai: 78 },
-    { bulan: "Feb", nilai: 80 },
-    { bulan: "Mar", nilai: 82 },
-    { bulan: "Apr", nilai: 85 },
-    { bulan: "Mei", nilai: 84 },
-    { bulan: "Jun", nilai: 87 },
-  ];
-
-  const siswaData = [
-    { name: "Aktif", value: data.activeStudents },
-    { name: "Non-Aktif", value: data.totalStudents - data.activeStudents },
-  ];
-
-  const COLORS = ["#4F46E5", "#A78BFA"];
+  const COLORS = ["#4F46E5", "#A78BFA", "#10B981"];
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -78,6 +54,7 @@ export const Dashboard = ({ data }: DashboardProps) => {
       </div>
 
       {/* Cards */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
           <Card key={index} className="shadow-md hover:shadow-lg transition-shadow">
@@ -98,7 +75,7 @@ export const Dashboard = ({ data }: DashboardProps) => {
 
       {/* Aktivitas & Kelas Populer */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="shadow-md">
+        {/* <Card className="shadow-md">
           <CardHeader>
             <CardTitle>Aktivitas Terbaru</CardTitle>
           </CardHeader>
@@ -127,44 +104,7 @@ export const Dashboard = ({ data }: DashboardProps) => {
               </div>
             </div>
           </CardContent>
-        </Card>
-
-        <Card className="shadow-md">
-          <CardHeader>
-            <CardTitle>Kelas Populer</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={kelasData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="siswa" fill="#4F46E5" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Grafik Nilai & Pie Chart */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="shadow-md">
-          <CardHeader>
-            <CardTitle>Perkembangan Nilai Rata-rata</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
-              <LineChart data={nilaiData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="bulan" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="nilai" stroke="#10B981" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
+        </Card> */}
         <Card className="shadow-md">
           <CardHeader>
             <CardTitle>Distribusi Siswa</CardTitle>
@@ -173,13 +113,13 @@ export const Dashboard = ({ data }: DashboardProps) => {
             <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie
-                  data={siswaData}
+                  data={alumniData}
                   dataKey="value"
                   nameKey="name"
                   outerRadius={80}
                   label
                 >
-                  {siswaData.map((entry, index) => (
+                  {alumniData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -189,6 +129,46 @@ export const Dashboard = ({ data }: DashboardProps) => {
             </ResponsiveContainer>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Grafik Nilai & Pie Chart */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle>Perkembangan Nilai Rata-rata</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={200}>
+              <LineChart data={alumniData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="bulan" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="nilai" stroke="#10B981" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card> 
+
+        <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle>Kelas Populer</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={alumniData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="siswa" fill="#4F46E5" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+        
+        */}
+
+        
       </div>
     </div>
   );

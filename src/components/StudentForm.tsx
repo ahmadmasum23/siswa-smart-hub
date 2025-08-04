@@ -24,7 +24,7 @@ export const StudentForm = ({ student, onSave, onCancel }: StudentFormProps) => 
     birthDate: student?.birthDate || "",
     class: student?.class || "",
     averageGrade: student?.averageGrade || 0,
-    status: student?.status || "active" as const,
+    status: student?.status || "bekerja" as const,
     enrollmentDate: student?.enrollmentDate || new Date().toISOString().split('T')[0],
   });
   

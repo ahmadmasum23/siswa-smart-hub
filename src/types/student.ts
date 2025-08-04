@@ -8,6 +8,6 @@ export interface Student {
   birthDate: string;
   class: string;
   averageGrade: number;
-  status: 'active' | 'inactive';
+  status: 'bekerja' | 'tidakbekerja';
   enrollmentDate: string;
 }

@@ -31,7 +31,8 @@ export const StudentList = ({
         student.nis.toLowerCase().includes(term.toLowerCase()) ||
         student.name.toLowerCase().includes(term.toLowerCase()) ||
         student.email.toLowerCase().includes(term.toLowerCase()) ||
-        student.class.toLowerCase().includes(term.toLowerCase())
+        student.class.toLowerCase().includes(term.toLowerCase()) ||
+        student.status.toLowerCase().includes(term.toLowerCase())
     );
     setFilteredStudents(filtered);
   };
